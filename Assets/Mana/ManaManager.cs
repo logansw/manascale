@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(ManaRenderer))]
 public class ManaManager : MonoBehaviour
 {
+    public static ManaManager Instance;
+    public static Action e_OnOverflow;
+    public static Action e_OnEmpty;
     public int MaxMana;
     public int Blue;
     public int Red;
@@ -12,14 +16,15 @@ public class ManaManager : MonoBehaviour
     public int Black;
     private ManaRenderer _manaRenderer;
 
+    void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         _manaRenderer = GetComponent<ManaRenderer>();
-    }
-
-    void Update()
-    {
-        _manaRenderer.RenderMana(this);
+        _manaRenderer.Render(this);
     }
 
     public int GetMana(ManaType type)
@@ -56,6 +61,7 @@ public class ManaManager : MonoBehaviour
                 Black += count;
                 break;
         }
+        _manaRenderer.Render(this);
     }
 }
 

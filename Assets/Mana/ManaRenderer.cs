@@ -8,7 +8,7 @@ public class ManaRenderer : MonoBehaviour
     [SerializeField] private Mana _manaPrefab;
     private Mana[] _manas;
 
-    public void RenderMana(ManaManager manaManager)
+    public void Render(ManaManager manaManager)
     {
         if (_manas == null)
         {
