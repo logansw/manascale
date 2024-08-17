@@ -6,7 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(ManaRenderer))]
 public class ManaManager : MonoBehaviour
 {
-    public static ManaManager Instance;
+    public bool IsPlayer;
+    public static ManaManager InstancePlayer;
+    public static ManaManager InstanceEnemy;
     public static Action e_OnOverflow;
     public static Action e_OnEmpty;
     public int MaxMana;
@@ -18,7 +20,14 @@ public class ManaManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if (IsPlayer)
+        {
+            InstancePlayer = this;
+        }
+        else
+        {
+            InstanceEnemy = this;
+        }
     }
 
     void Start()
@@ -62,6 +71,20 @@ public class ManaManager : MonoBehaviour
                 break;
         }
         _manaRenderer.Render(this);
+
+        if (GetFunctionalMana() <= 0 || GetFunctionalMana() > MaxMana)
+        {
+            e_OnOverflow?.Invoke();
+        }
+        else if (GetFunctionalMana() == 0)
+        {
+            e_OnEmpty?.Invoke();
+        }
+    }
+
+    public int GetFunctionalMana()
+    {
+        return Blue + Red;
     }
 }
 

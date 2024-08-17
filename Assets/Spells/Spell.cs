@@ -5,31 +5,47 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public abstract class Card : MonoBehaviour
+public abstract class Spell : MonoBehaviour
 {
     private TMP_Text _name;    
     private TMP_Text _description;
     public abstract string GetName();
     public abstract string GetDescription();
+    private Button _button;
+
+    public abstract TargetingRules GetTargetingRules();
     public abstract bool CanCast();
     public abstract void Cast();
-    private Button _button;
+
+    public void Select()
+    {
+        if (SpellManager.Instance.SelectedSpell == this)
+        {
+            SpellManager.Instance.DeselectSpell();
+        }
+        else
+        {
+            SpellManager.Instance.SelectSpell(this);
+        }
+    }
 
     void Start()
     {
         _button = GetComponent<Button>();
-        _button.onClick.AddListener(TryCast);
+        _button.onClick.AddListener(Select);
         _name = transform.Find("Name Text").GetComponent<TMP_Text>();
         _description = transform.Find("Description").GetComponent<TMP_Text>();
         _name.text = GetName();
         _description.text = GetDescription();
     }
 
-    public void TryCast()
+    public bool TryCast()
     {
         if (CanCast())
         {
             Cast();
+            return true;
         }
+        return false;
     }
 }

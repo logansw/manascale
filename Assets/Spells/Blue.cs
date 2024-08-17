@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Blue : Card
+public class Blue : Spell
 {
+    public override TargetingRules GetTargetingRules()
+    {
+        return new TargetingRules(new ManaRange(0, 0), new ManaRange(-1, -1));
+    }
+
     public override bool CanCast()
     {
         return true;
     }
     public override void Cast()
     {
-        ManaManager.Instance.ChangeMana(ManaType.Blue, 1);
+        ManaManager.InstancePlayer.ChangeMana(ManaType.Blue, 1);
     }
 
     public override string GetDescription()

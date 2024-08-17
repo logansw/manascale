@@ -21,6 +21,7 @@ public class ManaRenderer : MonoBehaviour
                 mana.RectTransform.anchorMax = new Vector2(0, 0);
                 mana.RectTransform.pivot = new Vector2(0, 0);
                 mana.RectTransform.anchoredPosition = new Vector2(i * mana.RectTransform.sizeDelta.x * 1.1f, 0);
+                mana.IsPlayerOwned = manaManager.IsPlayer;
             }
         }
 
