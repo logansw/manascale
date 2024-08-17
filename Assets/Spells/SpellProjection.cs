@@ -18,7 +18,7 @@ public class SpellProjection : Spell
     {
         ManaType manaType = SpellManager.Instance.SelectedManaPlayer[0].Type;
         ManaManager.InstancePlayer.ChangeMana(manaType, -1);
-        ManaManager.InstanceEnemy.ChangeMana(manaType, 1);
+        ManaManager.InstanceEnemy.ReceiveMana(manaType, 1);
     }
 
     public override string GetDescription()

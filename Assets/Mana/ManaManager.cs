@@ -53,6 +53,48 @@ public class ManaManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Receive offensive mana from the other player. Includes mana interaction logic.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="count"></param>
+    public void ReceiveMana(ManaType type, int count)
+    {
+        switch (type)
+        {
+            case ManaType.Red:
+                if (White >= count)
+                {
+                    ChangeMana(ManaType.White, -count);
+                }
+                else
+                {
+                    ChangeMana(ManaType.Red, count - White);
+                    ChangeMana(ManaType.White, -White);
+                }
+                break;
+            case ManaType.White:
+                if (Blue >= count)
+                {
+                    ChangeMana(ManaType.Blue, -count);
+                }
+                else
+                {
+                    ChangeMana(ManaType.White, count - Blue);
+                    ChangeMana(ManaType.Blue, -Blue);
+                }
+                break;
+            default:
+                ChangeMana(type, count);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Change mana count. Does not include mana interaction logic.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="count"></param>
     public void ChangeMana(ManaType type, int count)
     {
         switch (type)
@@ -85,6 +127,18 @@ public class ManaManager : MonoBehaviour
     public int GetFunctionalMana()
     {
         return Blue + Red;
+    }
+
+    public void AdvanceRedMana()
+    {
+        int red = Red;
+        ChangeMana(ManaType.Red, -red);
+        ChangeMana(ManaType.Black, red);
+    }
+
+    public void AdvanceWhiteMana()
+    {
+        ChangeMana(ManaType.White, -White);
     }
 }
 
