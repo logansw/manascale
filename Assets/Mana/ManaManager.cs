@@ -9,8 +9,8 @@ public class ManaManager : MonoBehaviour
     public bool IsPlayer;
     public static ManaManager InstancePlayer;
     public static ManaManager InstanceEnemy;
-    public static Action e_OnOverflow;
-    public static Action e_OnEmpty;
+    public Action e_OnOverflow;
+    public Action e_OnEmpty;
     public int MaxMana;
     public int Blue;
     public int Red;
@@ -113,15 +113,21 @@ public class ManaManager : MonoBehaviour
                 break;
         }
         _manaRenderer.Render(this);
+    }
 
-        if (GetFunctionalMana() <= 0 || GetFunctionalMana() > MaxMana)
+    public bool CheckAlive()
+    {
+        if (GetFunctionalMana() > MaxMana)
         {
             e_OnOverflow?.Invoke();
+            return false;
         }
-        else if (GetFunctionalMana() == 0)
+        else if (GetFunctionalMana() <= 0)
         {
             e_OnEmpty?.Invoke();
+            return false;
         }
+        return true;
     }
 
     public int GetFunctionalMana()

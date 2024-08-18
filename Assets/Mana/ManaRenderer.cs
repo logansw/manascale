@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ManaRenderer : MonoBehaviour
 {
+    public const int MAX_MANA = 12;    
     [SerializeField] private Mana _manaPrefab;
     private Mana[] _manas;
 
@@ -12,7 +13,7 @@ public class ManaRenderer : MonoBehaviour
     {
         if (_manas == null)
         {
-            _manas = new Mana[manaManager.MaxMana];
+            _manas = new Mana[MAX_MANA];
             for (int i = 0; i < _manas.Length; i++)
             {
                 Mana mana = Instantiate(_manaPrefab, transform);
@@ -23,12 +24,6 @@ public class ManaRenderer : MonoBehaviour
                 mana.RectTransform.anchoredPosition = new Vector2(i * mana.RectTransform.sizeDelta.x * 1.1f, 0);
                 mana.IsPlayerOwned = manaManager.IsPlayer;
             }
-        }
-
-        if (manaManager.Blue + manaManager.Red + manaManager.White + manaManager.Black > _manas.Length)
-        {
-            Debug.LogError("Not enough mana slots to render mana");
-            return;
         }
 
         int index = 0;
