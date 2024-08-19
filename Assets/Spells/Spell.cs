@@ -16,6 +16,22 @@ public abstract class Spell : MonoBehaviour
     public abstract TargetingRules GetTargetingRules();
     public abstract bool CanCast();
     public abstract void Cast();
+    public RectTransform RectTransform;
+
+    void Awake()
+    {
+        RectTransform = GetComponent<RectTransform>();
+    }
+
+    void Start()
+    {
+        _button = GetComponent<Button>();
+        _button.onClick.AddListener(Select);
+        _name = transform.Find("Name Text").GetComponent<TMP_Text>();
+        _description = transform.Find("Description").GetComponent<TMP_Text>();
+        _name.text = GetName();
+        _description.text = GetDescription();
+    }
 
     public void Select()
     {
@@ -29,21 +45,12 @@ public abstract class Spell : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(Select);
-        _name = transform.Find("Name Text").GetComponent<TMP_Text>();
-        _description = transform.Find("Description").GetComponent<TMP_Text>();
-        _name.text = GetName();
-        _description.text = GetDescription();
-    }
-
     public bool TryCast()
     {
         if (CanCast())
         {
             Cast();
+            DeckManager.Instance.Discard(this);
             return true;
         }
         return false;

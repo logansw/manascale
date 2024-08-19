@@ -6,6 +6,7 @@ public class PlayerTurnState : State
     {
         ManaManager.InstancePlayer.AdvanceWhiteMana();
         ManaManager.InstancePlayer.CheckAlive();
+        DeckManager.Instance.DrawCards(2);
     }
 
     public override void OnUpdate()
