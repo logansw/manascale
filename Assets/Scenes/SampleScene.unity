@@ -1559,15 +1559,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b79e940a940644548de449a051a4f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HighPrioritySpells:
-  - {fileID: 11400000, guid: d587bccc021244b77b80a954fd7020af, type: 2}
-  - {fileID: 11400000, guid: aa984e7dbf6594dc894ccbc02c3568d4, type: 2}
-  - {fileID: 11400000, guid: e50f0400e845d45538c24c4a8c00b6f5, type: 2}
-  MediumPrioritySpells:
-  - {fileID: 11400000, guid: e50f0400e845d45538c24c4a8c00b6f5, type: 2}
+  HighBalanceSpells:
+  - {fileID: 11400000, guid: 25ca2b7ad9a204cf796d7040f907d38f, type: 2}
   - {fileID: 11400000, guid: 9fcb13cb16c794aa1b3fb3613a6e7c11, type: 2}
-  LowPrioritySpells:
+  MediumBalanceSpells:
+  - {fileID: 11400000, guid: e50f0400e845d45538c24c4a8c00b6f5, type: 2}
+  - {fileID: 11400000, guid: 42ea45fa06ece46d3827164230239bca, type: 2}
+  LowBalanceSpells:
   - {fileID: 11400000, guid: f8359eab97e014cad92abfee702b1091, type: 2}
+  - {fileID: 11400000, guid: 9423bf5495243467ba5d60943e6ea5f7, type: 2}
+  - {fileID: 11400000, guid: 450651c3edaa844419c4a0aaa4b5f7f9, type: 2}
   IntendedSpell: {fileID: 0}
 --- !u!4 &2126471807
 Transform:

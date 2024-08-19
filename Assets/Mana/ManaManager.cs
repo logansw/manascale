@@ -118,7 +118,8 @@ public class ManaManager : MonoBehaviour
 
     public bool CheckAlive()
     {
-        if (GetFunctionalMana() > MaxMana)
+        Debug.Log(gameObject.name + " has " + GetFunctionalMana() + " mana");
+        if (GetFunctionalMana() > GetAvailableMana())
         {
             e_OnOverflow?.Invoke();
             return false;
@@ -133,7 +134,12 @@ public class ManaManager : MonoBehaviour
 
     public int GetFunctionalMana()
     {
-        return Blue + Red;
+        return Blue + Red + White;
+    }
+
+    public int GetAvailableMana()
+    {
+        return MaxMana - Black;
     }
 
     public void AdvanceRedMana()

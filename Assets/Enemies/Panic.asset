@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d81274f05061c48daa6df2887710fbf7, type: 3}
-  m_Name: Reversal
+  m_Name: Panic
   m_EditorClassIdentifier: 
   BlueCost: 0
-  RedCost: 1
+  RedCost: 0
   BlueSend: 0
-  RedSend: 1
+  RedSend: 2
   WhiteSend: 0
   BlackSend: 0
   BlueGenerate: 0
