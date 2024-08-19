@@ -113,6 +113,7 @@ public class ManaManager : MonoBehaviour
                 break;
         }
         _manaRenderer.Render(this);
+        CheckAlive();
     }
 
     public bool CheckAlive()

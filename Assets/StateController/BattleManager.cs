@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
     [SerializeField] private EnemyIntent _enemyIntent;
     public static BattleManager Instance;
     public Enemy CurrentEnemy;
+    [SerializeField] private Button _continueButton;
+    [SerializeField] private Button _castButton;
 
     void Awake()
     {
@@ -50,6 +53,16 @@ public class BattleManager : MonoBehaviour
             StateController.Instance.ChangeState(StateType.PlayerTurn);
             _enemyIntent.RenderIntent(CurrentEnemy.IntendedSpell);
         }
+    }
+
+    public void ToggleContinueButton(bool interactable)
+    {
+        _continueButton.interactable = interactable;
+    }
+
+    public void ToggleCastButton(bool interactable)
+    {
+        _castButton.interactable = interactable;
     }
 
     void ShowVictory()

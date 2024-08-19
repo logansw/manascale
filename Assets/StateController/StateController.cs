@@ -18,7 +18,7 @@ public class StateController : MonoBehaviour
 
     void Start()
     {
-        ChangeState(StateType.None);
+        ChangeState(StateType.PlayerTurn);
     }
 
     public void ChangeState(StateType stateType)

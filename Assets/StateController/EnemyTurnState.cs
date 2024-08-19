@@ -7,6 +7,7 @@ public class EnemyTurnState : State
         ManaManager.InstanceEnemy.AdvanceWhiteMana();
         BattleManager.Instance.CurrentEnemy.TryCast();
         BattleManager.Instance.Continue();
+        BattleManager.Instance.ToggleContinueButton(false);
     }
 
     public override void OnUpdate()

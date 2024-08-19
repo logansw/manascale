@@ -30,7 +30,7 @@ public class DeckManager : MonoBehaviour
         ExhaustPile = new List<Spell>();
         DiscardPile = new List<Spell>();
         InitializeDrawPile();
-        DrawCards(5);
+        DrawNewHand();
     }
 
     // Instantiate Spell game objects and add them to the Draw pile, shuffled.
@@ -39,8 +39,11 @@ public class DeckManager : MonoBehaviour
         Deck = new List<Spell>();
         AddCardToDeck<Blue>(3);
         AddCardToDeck<Red>(1);
-        AddCardToDeck<White>(1);
-        AddCardToDeck<SpellProjection>(3);
+        AddCardToDeck<White>(2);
+        AddCardToDeck<SpellProjection>(1);
+        AddCardToDeck<SpellBasicOffensive>(2);
+        AddCardToDeck<SpellFire>(1);
+        AddCardToDeck<SpellSteal>(1);
     }
 
     public void Shuffle(List<Spell> list)
@@ -74,6 +77,16 @@ public class DeckManager : MonoBehaviour
             T spell = card.AddComponent<T>();
             Deck.Add(spell);
         }
+    }
+
+    public void DrawNewHand()
+    {
+        foreach (Spell spell in Hand)
+        {
+            DiscardPile.Add(spell);
+        }
+        Hand.Clear();
+        DrawCards(5);
     }
 
     public void DrawCards(int count)

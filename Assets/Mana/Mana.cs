@@ -28,14 +28,14 @@ public class Mana : MonoBehaviour
             ManaType.Red => Color.red,
             ManaType.White => Color.white,
             ManaType.Black => Color.black,
-            _ => Color.clear
+            _ => new Color(1f, 1f, 1f, 0.25f)
         };
         _stroke.gameObject.SetActive(IsSelected);
     }
 
     public void TrySelect()
     {
-        if (SpellManager.Instance.SpellSelectState != SpellSelectState.ChoosingTarget)
+        if (SpellManager.Instance.SpellSelectState != SpellSelectState.ChoosingTarget || Type == ManaType.None || Type == ManaType.Black)
         {
             return;
         }
@@ -67,5 +67,6 @@ public class Mana : MonoBehaviour
             }
         }
         Render();
+        SpellManager.Instance.UpdateCastButton();
     }
 }

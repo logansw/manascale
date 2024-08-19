@@ -10,7 +10,7 @@ public class SpellManager : MonoBehaviour
     public SpellSelectState SpellSelectState;
     public List<Mana> SelectedManaPlayer;
     public List<Mana> SelectedManaEnemy;
-    public Button CastButton;
+    [SerializeField] private Button _castButton;
 
     void Awake()
     {
@@ -34,6 +34,8 @@ public class SpellManager : MonoBehaviour
         SelectedSpell = spell;
         SpellSelectState = SpellSelectState.ChoosingTarget;
         spell.transform.position += new Vector3(0, 100, 0);
+        UpdateCastButton();
+        BattleManager.Instance.ToggleContinueButton(false);
     }
 
     public void DeselectSpell()
@@ -56,6 +58,8 @@ public class SpellManager : MonoBehaviour
         }
         SelectedManaPlayer.Clear();
         SelectedManaEnemy.Clear();
+        UpdateCastButton();
+        BattleManager.Instance.ToggleContinueButton(true);
     }
 
     public void TryCast()
@@ -71,6 +75,11 @@ public class SpellManager : MonoBehaviour
                 // Explain why to the player
             }
         }
+    }
+
+    public void UpdateCastButton()
+    {
+        _castButton.interactable = SelectedSpell != null && SelectedSpell.CanCast();
     }
 }
 

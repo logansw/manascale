@@ -8,6 +8,12 @@ public class ManaRenderer : MonoBehaviour
     public const int MAX_MANA = 12;    
     [SerializeField] private Mana _manaPrefab;
     private Mana[] _manas;
+    private RectTransform _rectTransform;
+
+    void Awake()
+    {
+        _rectTransform = GetComponent<RectTransform>();
+    }
 
     public void Render(ManaManager manaManager)
     {
@@ -26,6 +32,15 @@ public class ManaRenderer : MonoBehaviour
             }
         }
 
+        for (int i = manaManager.MaxMana; i < MAX_MANA; i++)
+        {
+            _manas[i].gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < manaManager.MaxMana; i++)
+        {
+            _manas[i].Type = ManaType.None;
+        }
         int index = 0;
         for (int i = 0; i < manaManager.Blue; i++)
         {
@@ -42,19 +57,26 @@ public class ManaRenderer : MonoBehaviour
             _manas[index].Type = ManaType.White;
             index++;
         }
-        for (int i = 0; i < manaManager.Black; i++)
+        for (int i = 1; i <= manaManager.Black; i++)
         {
-            _manas[index].Type = ManaType.Black;
-            index++;
-        }
-        for (int i = index; i < _manas.Length; i++)
-        {
-            _manas[i].Type = ManaType.None;
+            _manas[manaManager.MaxMana - i].Type = ManaType.Black;
         }
 
         for (int i = 0; i < _manas.Length; i++)
         {
             _manas[i].Render();
         }
+
+        CenterMana(manaManager);
+    }
+
+    private void CenterMana(ManaManager manaManager)
+    {
+        float totalWidth = 0;
+        for (int i = 0; i < manaManager.MaxMana; i++)
+        {
+            totalWidth += _manas[i].RectTransform.sizeDelta.x * 1.1f;
+        }
+        _rectTransform.anchoredPosition = new Vector2((_rectTransform.sizeDelta.x - totalWidth) / 2, _rectTransform.anchoredPosition.y);
     }
 }
