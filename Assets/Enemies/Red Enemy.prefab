@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1564630934107580194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3776949427836437157}
+  - component: {fileID: 8404971722376983553}
+  m_Layer: 0
+  m_Name: Red Enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3776949427836437157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564630934107580194}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 430.33878, y: 317.81024, z: -4.2334375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8404971722376983553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564630934107580194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b79e940a940644548de449a051a4f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HighBalanceSpells:
+  - {fileID: 11400000, guid: 25ca2b7ad9a204cf796d7040f907d38f, type: 2}
+  MediumBalanceSpells:
+  - {fileID: 11400000, guid: 85da663b49f1f4b6c92ae61371f56b08, type: 2}
+  LowBalanceSpells:
+  - {fileID: 11400000, guid: 450651c3edaa844419c4a0aaa4b5f7f9, type: 2}
+  - {fileID: 11400000, guid: f8359eab97e014cad92abfee702b1091, type: 2}
+  IntendedSpell: {fileID: 0}

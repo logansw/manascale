@@ -116,6 +116,15 @@ public class ManaManager : MonoBehaviour
         CheckAlive();
     }
 
+    public void ResetMana()
+    {
+        Blue = MaxMana / 2;
+        Red = 0;
+        White = 0;
+        Black = 0;
+        _manaRenderer.Render(this);
+    }
+
     public bool CheckAlive()
     {
         Debug.Log(gameObject.name + " has " + GetFunctionalMana() + " mana");
