@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Red : Spell
+public class SpellFocus : Spell
 {
     public override TargetingRules GetTargetingRules()
     {
@@ -11,22 +11,22 @@ public class Red : Spell
 
     public override bool CanCast()
     {
-        return ManaManager.InstancePlayer.GetMana(ManaType.Blue) > 0;
+        return ManaManager.InstancePlayer.GetFunctionalMana() < ManaManager.InstancePlayer.GetAvailableMana();
     }
 
     public override void Cast()
     {
-        ManaManager.InstancePlayer.ChangeMana(ManaType.Blue, -1);
-        ManaManager.InstancePlayer.ChangeMana(ManaType.Red, 1);
+        ManaManager.InstancePlayer.ChangeMana(ManaType.Blue, 1);
+        DeckManager.Instance.DrawCards(1);
     }
 
     public override string GetDescription()
     {
-        return "Convert 1 blue mana to 1 red mana";
+        return "Gain 1 Blue and Draw 1 card";
     }
 
     public override string GetName()
     {
-        return "Red";
+        return "Focus";
     }
 }

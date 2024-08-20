@@ -12,6 +12,7 @@ public abstract class Spell : MonoBehaviour
     public abstract string GetName();
     public abstract string GetDescription();
     private Button _button;
+    public bool ExhaustAfterUse;
 
     public abstract TargetingRules GetTargetingRules();
     public abstract bool CanCast();
@@ -23,7 +24,7 @@ public abstract class Spell : MonoBehaviour
         RectTransform = GetComponent<RectTransform>();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         _button = GetComponent<Button>();
         _button.onClick.AddListener(Select);
@@ -50,7 +51,14 @@ public abstract class Spell : MonoBehaviour
         if (CanCast())
         {
             Cast();
-            DeckManager.Instance.Discard(this);
+            if (ExhaustAfterUse)
+            {
+                DeckManager.Instance.Exhaust(this);
+            }
+            else
+            {
+                DeckManager.Instance.Discard(this);
+            }
             return true;
         }
         return false;

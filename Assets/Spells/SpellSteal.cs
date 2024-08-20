@@ -6,7 +6,7 @@ public class SpellSteal : Spell
 {
     public override TargetingRules GetTargetingRules()
     {
-        return new TargetingRules(new ManaRange(-1, -1), new ManaRange(1, 1));
+        return new TargetingRules(new ManaRange(-1, -1), new ManaRange(0, 1));
     }
 
     public override bool CanCast()

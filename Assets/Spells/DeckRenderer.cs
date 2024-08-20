@@ -24,6 +24,7 @@ public class DeckRenderer : MonoBehaviour
             {
                 RenderShop();
             }
+            RenderExhaustPile(DeckManager.Instance.ExhaustPile);
         }
     }
 
@@ -74,6 +75,16 @@ public class DeckRenderer : MonoBehaviour
             spell.RectTransform.pivot = new Vector2(0, 0.5f);
             spell.RectTransform.anchoredPosition = new Vector2(cardPositionOffset, 0);
             cardPositionOffset += _cardPrefab.rect.width + 10;
+        }
+    }
+
+    public void RenderExhaustPile(List<Spell> exhaustPile)
+    {
+        foreach (Spell spell in exhaustPile)
+        {
+            spell.transform.SetParent(_exhaustPileTransform);
+            spell.gameObject.SetActive(false);
+            spell.transform.localPosition = Vector3.zero;
         }
     }
 

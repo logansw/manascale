@@ -42,29 +42,11 @@ public class Mana : MonoBehaviour
 
         if (IsPlayerOwned)
         {
-            if (IsSelected)
-            {
-                IsSelected = false;
-                SpellManager.Instance.SelectedManaPlayer.Remove(this);
-            }
-            else
-            {
-                IsSelected = true;
-                SpellManager.Instance.SelectedManaPlayer.Add(this);
-            }
+            SpellManager.Instance.TryTogglePlayerMana(this);
         }
         else
         {
-            if (IsSelected)
-            {
-                IsSelected = false;
-                SpellManager.Instance.SelectedManaEnemy.Remove(this);
-            }
-            else
-            {
-                IsSelected = true;
-                SpellManager.Instance.SelectedManaEnemy.Add(this);
-            }
+            SpellManager.Instance.TryToggleEnemyMana(this);
         }
         Render();
         SpellManager.Instance.UpdateCastButton();

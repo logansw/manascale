@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Red : Spell
+public class SpellMemory : Spell
 {
     public override TargetingRules GetTargetingRules()
     {
-        return new TargetingRules(new ManaRange(-1, -1), new ManaRange(-1, -1));
+        return new TargetingRules(new ManaRange(0, 0), new ManaRange(-1, -1));
     }
 
     public override bool CanCast()
@@ -17,16 +17,16 @@ public class Red : Spell
     public override void Cast()
     {
         ManaManager.InstancePlayer.ChangeMana(ManaType.Blue, -1);
-        ManaManager.InstancePlayer.ChangeMana(ManaType.Red, 1);
+        DeckManager.Instance.DrawCards(2);
     }
 
     public override string GetDescription()
     {
-        return "Convert 1 blue mana to 1 red mana";
+        return "Convert 1 Blue to 2 cards";
     }
 
     public override string GetName()
     {
-        return "Red";
+        return "Memory";
     }
 }

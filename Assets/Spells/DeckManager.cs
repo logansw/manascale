@@ -40,13 +40,16 @@ public class DeckManager : Singleton<DeckManager>
     public void InitializeDeck()
     {
         Deck = new List<Spell>();
-        AddCardToDeck<Blue>(3);
-        AddCardToDeck<Red>(1);
-        AddCardToDeck<White>(2);
-        AddCardToDeck<SpellProjection>(1);
+        // AddCardToDeck<Blue>(3);
+        // AddCardToDeck<Red>(1);
+        // AddCardToDeck<White>(2);
+        // AddCardToDeck<SpellProjection>(1);
         AddCardToDeck<SpellBasicOffensive>(2);
-        AddCardToDeck<SpellFire>(1);
-        AddCardToDeck<SpellSteal>(1);
+        // AddCardToDeck<SpellFire>(1);
+        // AddCardToDeck<SpellSteal>(1);
+
+        AddCardToDeck<Blue>(5);
+        AddCardToDeck<SpellLightShield>(3);
     }
 
     private void InitializeDatabase()
@@ -57,6 +60,13 @@ public class DeckManager : Singleton<DeckManager>
         AddCardToDatabase<SpellWhiteReversal>(2);
         AddCardToDatabase<SpellRemove>(2);
         AddCardToDatabase<SpellSteal>(2);
+        AddCardToDatabase<SpellLightShield>(2);
+        AddCardToDatabase<SpellFocus>(2);
+        AddCardToDatabase<SpellDrain>(2);
+        AddCardToDatabase<SpellMemory>(2);
+        AddCardToDatabase<SpellCast>(2);
+        AddCardToDatabase<SpellDestroy>(2);
+        AddCardToDatabase<Red>(2);
     }
 
     public void Shuffle(List<Spell> list)
@@ -84,6 +94,11 @@ public class DeckManager : Singleton<DeckManager>
             DrawPile.Add(spell);
         }
         DiscardPile.Clear();
+        foreach (Spell spell in ExhaustPile)
+        {
+            DrawPile.Add(spell);
+        }
+        ExhaustPile.Clear();
         Shuffle(DrawPile);
     }
 

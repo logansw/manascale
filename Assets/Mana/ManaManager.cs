@@ -145,13 +145,13 @@ public class ManaManager : MonoBehaviour
         Debug.Log($"{gameObject.name} {GetFunctionalMana()} / {GetAvailableMana()}");
         if (GetFunctionalMana() > GetAvailableMana())
         {
-            GameManager.Instance.SetDefeatDescription($"You died because you had too much mana ({GetFunctionalMana()} / {GetAvailableMana()})!");
+            GameManager.Instance.SetDefeatDescription($"You died because you had too much mana ({GetFunctionalMana()}/{GetAvailableMana()})!");
             e_OnOverflow?.Invoke();
             return false;
         }
         else if (GetFunctionalMana() <= 0)
         {
-            GameManager.Instance.SetDefeatDescription($"You died because you ran out of mana ({GetFunctionalMana()} / {GetAvailableMana()})!");
+            GameManager.Instance.SetDefeatDescription($"You died because you ran out of mana ({GetFunctionalMana()}/{GetAvailableMana()})!");
             e_OnEmpty?.Invoke();
             return false;
         }
@@ -171,8 +171,9 @@ public class ManaManager : MonoBehaviour
     public void AdvanceRedMana()
     {
         int red = Red;
+        MaxMana -= red;
         ChangeMana(ManaType.Red, -red);
-        ChangeMana(ManaType.Black, red);
+        ChangeMana(ManaType.None, red);
     }
 
     public void AdvanceWhiteMana()

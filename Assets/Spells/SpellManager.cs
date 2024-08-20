@@ -85,6 +85,41 @@ public class SpellManager : Singleton<SpellManager>
     {
         _castButton.interactable = SelectedSpell != null && SelectedSpell.CanCast();
     }
+
+    public bool TryTogglePlayerMana(Mana mana)
+    {
+        return TryToggleManaHelper(mana, SelectedManaPlayer, SelectedSpell.GetTargetingRules().SelfManaRange);
+    }
+
+    public bool TryToggleEnemyMana(Mana mana)
+    {
+        return TryToggleManaHelper(mana, SelectedManaEnemy, SelectedSpell.GetTargetingRules().EnemyManaRange);
+    }
+
+    private bool TryToggleManaHelper(Mana mana, List<Mana> manaList, ManaRange manaRange)
+    {
+        if (mana.IsSelected)
+        {
+            int count = manaList.Count;
+            if (count > manaRange.MinimumMana)
+            {
+                manaList.Remove(mana);
+                mana.IsSelected = false;
+                return true;
+            }
+        }
+        else
+        {
+            int count = manaList.Count;
+            if (count < manaRange.MaximumMana)
+            {
+                manaList.Add(mana);
+                mana.IsSelected = true;
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 public enum SpellSelectState
