@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,8 @@ using UnityEngine.UI;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private RectTransform _victoryPanel;
+    [SerializeField] private RectTransform _defeatPanel;
+    [SerializeField] private TMP_Text _defeatDescription;
     [SerializeField] private int _currentEnemyMana;
 
     void Start()
@@ -37,11 +40,13 @@ public class GameManager : Singleton<GameManager>
     void OnEnable()
     {
         BattleManager.e_OnVictory += OnVictory;
+        BattleManager.e_OnDefeat += OnDefeat;
     }
 
     void OnDisable()
     {
         BattleManager.e_OnVictory -= OnVictory;
+        BattleManager.e_OnDefeat -= OnDefeat;
     }
 
     public void NextBattle()
@@ -56,5 +61,15 @@ public class GameManager : Singleton<GameManager>
         _victoryPanel.gameObject.SetActive(true);
         _currentEnemyMana += 2;
         SpellManager.Instance.DeselectSpell();
+    }
+
+    public void OnDefeat()
+    {
+        _defeatPanel.gameObject.SetActive(true);
+    }
+
+    public void SetDefeatDescription(string description)
+    {
+        _defeatDescription.text = description;
     }
 }
