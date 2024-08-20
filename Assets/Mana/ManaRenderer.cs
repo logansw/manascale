@@ -32,6 +32,10 @@ public class ManaRenderer : MonoBehaviour
             }
         }
 
+        foreach (Mana mana in _manas)
+        {
+            mana.gameObject.SetActive(true);
+        }
         for (int i = manaManager.MaxMana; i < MAX_MANA; i++)
         {
             _manas[i].gameObject.SetActive(false);

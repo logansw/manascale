@@ -5,7 +5,7 @@ public class PlayerTurnState : State
     public override void OnEnter()
     {
         ManaManager.InstancePlayer.AdvanceWhiteMana();
-        ManaManager.InstancePlayer.CheckAlive();
+        ManaManager.InstancePlayer.QueueCheckAlive();
         DeckManager.Instance.DrawNewHand();
         BattleManager.Instance.ToggleContinueButton(true);
     }
@@ -18,6 +18,6 @@ public class PlayerTurnState : State
     public override void OnExit()
     {
         ManaManager.InstancePlayer.AdvanceRedMana();
-        ManaManager.InstanceEnemy.CheckAlive();
+        ManaManager.InstanceEnemy.QueueCheckAlive();
     }
 }

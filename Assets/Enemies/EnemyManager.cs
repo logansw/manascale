@@ -1,22 +1,27 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : Singleton<EnemyManager>
 {
-    public static EnemyManager Instance;
     [SerializeField] private List<Enemy> _enemyPrefabs;
-    private Enemy _currentEnemy;
+    public Enemy CurrentEnemy;
+    [SerializeField] private EnemyIntent _enemyIntent;
 
-    void Start()
+    public override void Initialize()
     {
-        LoadNextEnemy(5);
+        // Do nothing
     }
 
     public void LoadNextEnemy(int MaxMana)
     {
-        _currentEnemy = Instantiate(ChooseEnemyType(), transform);
-        BattleManager.Instance.CurrentEnemy = _currentEnemy;
+        if (CurrentEnemy != null)
+        {
+            Destroy(CurrentEnemy.gameObject);
+        }
         ManaManager.InstanceEnemy.MaxMana = MaxMana;
+        CurrentEnemy = Instantiate(ChooseEnemyType(), transform);
+        CurrentEnemy.Initialize(_enemyIntent);
+        BattleManager.Instance.CurrentEnemy = CurrentEnemy;
         ManaManager.InstanceEnemy.ResetMana();
     }
 

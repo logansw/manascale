@@ -17,6 +17,7 @@ public class ManaManager : MonoBehaviour
     public int White;
     public int Black;
     private ManaRenderer _manaRenderer;
+    private bool _checkAliveQueued;
 
     void Awake()
     {
@@ -30,10 +31,19 @@ public class ManaManager : MonoBehaviour
         }
     }
 
-    void Start()
+    public void Initialize()
     {
         _manaRenderer = GetComponent<ManaRenderer>();
         _manaRenderer.Render(this);
+    }
+
+    void Update()
+    {
+        if (_checkAliveQueued)
+        {
+            CheckAlive();
+            _checkAliveQueued = false;
+        }
     }
 
     public int GetMana(ManaType type)
@@ -113,7 +123,7 @@ public class ManaManager : MonoBehaviour
                 break;
         }
         _manaRenderer.Render(this);
-        CheckAlive();
+        QueueCheckAlive();
     }
 
     public void ResetMana()
@@ -125,9 +135,14 @@ public class ManaManager : MonoBehaviour
         _manaRenderer.Render(this);
     }
 
+    public void QueueCheckAlive()
+    {
+        _checkAliveQueued = true;
+    }
+
     public bool CheckAlive()
     {
-        Debug.Log(gameObject.name + " has " + GetFunctionalMana() + " mana");
+        Debug.Log($"{gameObject.name} {GetFunctionalMana()} / {GetAvailableMana()}");
         if (GetFunctionalMana() > GetAvailableMana())
         {
             e_OnOverflow?.Invoke();

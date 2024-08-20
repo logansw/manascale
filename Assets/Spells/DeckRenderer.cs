@@ -9,6 +9,7 @@ public class DeckRenderer : MonoBehaviour
     [SerializeField] private RectTransform _handTransform;
     [SerializeField] private RectTransform _discardPileTransform;
     [SerializeField] private RectTransform _exhaustPileTransform;
+    [SerializeField] private RectTransform _shopTransform;
     private bool _updateQueued;
 
     void Update()
@@ -19,6 +20,10 @@ public class DeckRenderer : MonoBehaviour
             RenderHand(DeckManager.Instance.Hand);
             RenderDrawPile(DeckManager.Instance.DrawPile);
             RenderDiscardPile(DeckManager.Instance.DiscardPile);
+            if (StateController.Instance.CurrentState is ShopState)
+            {
+                RenderShop();
+            }
         }
     }
 
@@ -54,6 +59,21 @@ public class DeckRenderer : MonoBehaviour
             spell.transform.SetParent(_discardPileTransform);
             spell.gameObject.SetActive(false);
             spell.transform.localPosition = Vector3.zero;
+        }
+    }
+
+    public void RenderShop()
+    {
+        float cardPositionOffset = 0;
+        foreach (Spell spell in DeckManager.Instance.Shop)
+        {
+            spell.gameObject.SetActive(true);
+            spell.transform.SetParent(_shopTransform);
+            spell.RectTransform.anchorMin = new Vector2(0, 0.5f);
+            spell.RectTransform.anchorMax = new Vector2(0, 0.5f);
+            spell.RectTransform.pivot = new Vector2(0, 0.5f);
+            spell.RectTransform.anchoredPosition = new Vector2(cardPositionOffset, 0);
+            cardPositionOffset += _cardPrefab.rect.width + 10;
         }
     }
 

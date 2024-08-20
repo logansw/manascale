@@ -1,20 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpellManager : MonoBehaviour
+public class SpellManager : Singleton<SpellManager>
 {
-    public static SpellManager Instance;
+    public const int SELECTION_OFFSET = 20;
     public Spell SelectedSpell;
     public SpellSelectState SpellSelectState;
     public List<Mana> SelectedManaPlayer;
     public List<Mana> SelectedManaEnemy;
     [SerializeField] private Button _castButton;
+    public static Action e_OnSpellSelectionChanged;
 
-    void Awake()
+    public override void Initialize()
     {
-        Instance = this;
+        // Do nothing
     }
 
     void Update()
@@ -33,16 +35,17 @@ public class SpellManager : MonoBehaviour
         }
         SelectedSpell = spell;
         SpellSelectState = SpellSelectState.ChoosingTarget;
-        spell.transform.position += new Vector3(0, 100, 0);
+        spell.transform.position += new Vector3(0, SELECTION_OFFSET, 0);
         UpdateCastButton();
         BattleManager.Instance.ToggleContinueButton(false);
+        e_OnSpellSelectionChanged?.Invoke();
     }
 
     public void DeselectSpell()
     {
         if (SelectedSpell != null)
         {
-            SelectedSpell.transform.position += new Vector3(0, -100, 0);
+            SelectedSpell.transform.position += new Vector3(0, -SELECTION_OFFSET, 0);
         }
         SelectedSpell = null;
         SpellSelectState = SpellSelectState.None;
@@ -60,6 +63,7 @@ public class SpellManager : MonoBehaviour
         SelectedManaEnemy.Clear();
         UpdateCastButton();
         BattleManager.Instance.ToggleContinueButton(true);
+        e_OnSpellSelectionChanged?.Invoke();
     }
 
     public void TryCast()

@@ -1,25 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : Singleton<BattleManager>
 {
-    [SerializeField] private EnemyIntent _enemyIntent;
-    public static BattleManager Instance;
     public Enemy CurrentEnemy;
     [SerializeField] private Button _continueButton;
     [SerializeField] private Button _castButton;
+    public static Action e_OnVictory;
+    public static Action e_OnDefeat;
 
-    void Awake()
+    public override void Initialize()
     {
-        Instance = this;
+        // Do nothing
     }
 
-    void Start()
+    public void Reset()
     {
-        CurrentEnemy.ChooseSpell();
-        _enemyIntent.RenderIntent(CurrentEnemy.IntendedSpell);
+        DeckManager.Instance.Reset();
+        StateController.Instance.ChangeState(StateType.PlayerTurn);
     }
 
     void OnEnable()
@@ -51,7 +52,10 @@ public class BattleManager : MonoBehaviour
         else if (StateController.Instance.CurrentState is EnemyTurnState)
         {
             StateController.Instance.ChangeState(StateType.PlayerTurn);
-            _enemyIntent.RenderIntent(CurrentEnemy.IntendedSpell);
+        }
+        else if (StateController.Instance.CurrentState is ShopState)
+        {
+            StateController.Instance.ChangeState(StateType.PlayerTurn);
         }
     }
 
@@ -67,11 +71,11 @@ public class BattleManager : MonoBehaviour
 
     void ShowVictory()
     {
-        Debug.Log("Victory!");
+        e_OnVictory?.Invoke();
     }
 
     void ShowDefeat()
     {
-        Debug.Log("Defeat.");
+        e_OnDefeat?.Invoke();
     }
 }

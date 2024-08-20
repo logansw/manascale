@@ -14,10 +14,14 @@ public class EnemyIntent : MonoBehaviour
 
     public void RenderIntent(EnemySpellSO spell)
     {
-        _description.text = spell.GetDescription();
-        // RenderCost(spell);
-        // RenderSend(spell);
-        // RenderGenerate(spell);
+        if (spell == null)
+        {
+            _description.text = "";
+        }
+        else
+        {
+            _description.text = spell.GetDescription();
+        }
     }
 
     /*

@@ -2,23 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateController : MonoBehaviour
+public class StateController : Singleton<StateController>
 {
-    public static StateController Instance;
     public State CurrentState;
     private PlayerTurnState _playerTurnState;
     private EnemyTurnState _enemyTurnState;
+    private ShopState _shopState;
 
-    void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
         _playerTurnState = gameObject.AddComponent<PlayerTurnState>();
         _enemyTurnState = gameObject.AddComponent<EnemyTurnState>();
+        _shopState = gameObject.AddComponent<ShopState>();
     }
 
-    void Start()
+    public override void Initialize()
     {
         ChangeState(StateType.PlayerTurn);
+    }
+
+    void OnEnable()
+    {
+        BattleManager.e_OnVictory += OnVictory;
+    }
+
+    void OnDisable()
+    {
+        BattleManager.e_OnVictory -= OnVictory;
     }
 
     public void ChangeState(StateType stateType)
@@ -39,9 +50,17 @@ public class StateController : MonoBehaviour
             case StateType.EnemyTurn:
                 CurrentState = _enemyTurnState;
                 break;
+            case StateType.Shop:
+                CurrentState = _shopState;
+                break;
         }
 
         CurrentState?.OnEnter();
+    }
+
+    private void OnVictory()
+    {
+        ChangeState(StateType.Shop);
     }
 }
 
@@ -50,4 +69,5 @@ public enum StateType
     None,
     PlayerTurn,
     EnemyTurn,
+    Shop,
 }

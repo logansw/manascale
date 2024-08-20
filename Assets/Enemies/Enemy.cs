@@ -10,6 +10,13 @@ public class Enemy : MonoBehaviour
     public EnemySpellSO IntendedSpell;
     private int _lowerThirdThreshhold;
     private int _upperThirdThreshhold;
+    public EnemyIntent Intent;
+
+    public void Initialize(EnemyIntent intent)
+    {
+        Intent = intent;
+        ChooseSpell();
+    }
 
     public void CalculateThreshholds()
     {
@@ -43,9 +50,17 @@ public class Enemy : MonoBehaviour
                 castableSpells.Add(spell);
             }
         }
-        
-        IntendedSpell = castableSpells[Random.Range(0, castableSpells.Count)];
-        return;
+        int index = Random.Range(0, castableSpells.Count);
+        if (castableSpells.Count == 0)
+        {
+            IntendedSpell = null;
+            Intent.RenderIntent(null);
+        }
+        else
+        {
+            IntendedSpell = castableSpells[Random.Range(0, castableSpells.Count)];
+            Intent.RenderIntent(IntendedSpell);
+        }
     }
 
     public bool TryCast()

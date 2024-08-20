@@ -5,32 +5,35 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(DeckRenderer))]
-public class DeckManager : MonoBehaviour
+public class DeckManager : Singleton<DeckManager>
 {
-    public static DeckManager Instance;
     public List<Spell> Deck { get; private set; }
     public List<Spell> DrawPile { get; private set; }
     public List<Spell> Hand { get; private set; }
     public List<Spell> DiscardPile { get; private set; }
     public List<Spell> ExhaustPile { get; private set; }
+    public List<Spell> Database { get; private set; }
+    public List<Spell> Shop { get; private set; }
     [SerializeField] private RectTransform _cardPrefab;
     private DeckRenderer _deckRenderer;
 
-    void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
         _deckRenderer = GetComponent<DeckRenderer>();
     }
 
-    void Start()
+    public override void Initialize()
     {
         InitializeDeck();
-            DrawPile = new List<Spell>();
+        DrawPile = new List<Spell>();
         Hand = new List<Spell>();
         ExhaustPile = new List<Spell>();
         DiscardPile = new List<Spell>();
+        Shop = new List<Spell>();
         InitializeDrawPile();
         DrawNewHand();
+        InitializeDatabase();
     }
 
     // Instantiate Spell game objects and add them to the Draw pile, shuffled.
@@ -46,6 +49,16 @@ public class DeckManager : MonoBehaviour
         AddCardToDeck<SpellSteal>(1);
     }
 
+    private void InitializeDatabase()
+    {
+        Database = new List<Spell>();
+        AddCardToDatabase<SpellFire>(2);
+        AddCardToDatabase<SpellRedReversal>(2);
+        AddCardToDatabase<SpellWhiteReversal>(2);
+        AddCardToDatabase<SpellRemove>(2);
+        AddCardToDatabase<SpellSteal>(2);
+    }
+
     public void Shuffle(List<Spell> list)
     {
         int n = list.Count;
@@ -59,6 +72,21 @@ public class DeckManager : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        foreach (Spell spell in Hand)
+        {
+            DiscardPile.Add(spell);
+        }
+        Hand.Clear();
+        foreach (Spell spell in DiscardPile)
+        {
+            DrawPile.Add(spell);
+        }
+        DiscardPile.Clear();
+        Shuffle(DrawPile);
+    }
+
     public void InitializeDrawPile()
     {
         foreach (Spell spell in Deck)
@@ -67,6 +95,23 @@ public class DeckManager : MonoBehaviour
         }
         Shuffle(DrawPile);
         Deck.Clear();
+    }
+
+    private void AddCardToDatabase<T>(int count) where T : Spell
+    {
+        for (int i = 0; i < count; i++)
+        {
+            RectTransform card = Instantiate(_cardPrefab);
+            T spell = card.AddComponent<T>();
+            Database.Add(spell);
+        }
+    }
+
+    public void AddCardToDeck(Spell spell)
+    {
+        RectTransform card = Instantiate(_cardPrefab);
+        spell = card.gameObject.AddComponent(spell.GetType()) as Spell;
+        Deck.Add(spell);
     }
 
     public void AddCardToDeck<T>(int count) where T : Spell
@@ -133,6 +178,28 @@ public class DeckManager : MonoBehaviour
 
         MoveCard(spell, Hand, ExhaustPile);
     }
+
+    public Spell GetRandomDatabaseSpell()
+    {
+        return Database[Random.Range(0, Database.Count)];
+    }
+
+    public void DatabaseToShop(Spell spell)
+    {
+        MoveCard(spell, Database, Shop);
+    }
+
+    public void ShopToDatabase(Spell spell)
+    {
+        MoveCard(spell, Shop, Database);
+    }
+
+    public void ShopToDeck(Spell spell)
+    {
+        MoveCard(spell, Shop, DiscardPile);
+        spell.gameObject.SetActive(false);
+    }
+
 
     private void MoveCard(Spell spell, List<Spell> from, List<Spell> to)
     {
