@@ -28,7 +28,7 @@ public class EnemySpellSO : ScriptableObject
         StringBuilder sb = new StringBuilder();
         if (BlueCost > 0)
         {
-            sb.Append("Cost ");
+            sb.Append("Spend ");
             sb.Append(BlueCost);
             sb.Append(" Blue");
         }
@@ -38,13 +38,13 @@ public class EnemySpellSO : ScriptableObject
             {
                 sb.Append(", ");
             }
-            sb.Append("Cost ");
+            sb.Append("Spend ");
             sb.Append(RedCost);
             sb.Append(" Red");
         }
         if (BlueSend > 0)
         {
-            sb.Append("Send ");
+            sb.Append("Attack with ");
             sb.Append(BlueSend);
             sb.Append(" Blue");
         }
@@ -54,7 +54,7 @@ public class EnemySpellSO : ScriptableObject
             {
                 sb.Append(", ");
             }
-            sb.Append("Send ");
+            sb.Append("Attack with ");
             sb.Append(RedSend);
             sb.Append(" Red");
         }
@@ -64,7 +64,7 @@ public class EnemySpellSO : ScriptableObject
             {
                 sb.Append(", ");
             }
-            sb.Append("Send ");
+            sb.Append("Attack with ");
             sb.Append(WhiteSend);
             sb.Append(" White");
         }
@@ -74,7 +74,7 @@ public class EnemySpellSO : ScriptableObject
             {
                 sb.Append(", ");
             }
-            sb.Append("Send ");
+            sb.Append("Attack with ");
             sb.Append(BlackSend);
             sb.Append(" Black");
         }

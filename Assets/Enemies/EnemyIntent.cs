@@ -20,7 +20,7 @@ public class EnemyIntent : MonoBehaviour
         }
         else
         {
-            _description.text = spell.GetDescription();
+            _description.text = "Enemy intends to: " + spell.GetDescription();
         }
     }
 

@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private RectTransform _defeatPanel;
     [SerializeField] private TMP_Text _defeatDescription;
     [SerializeField] private int _currentEnemyMana;
+    [SerializeField] private GameObject _rulebook;
 
     void Start()
     {
@@ -35,6 +36,8 @@ public class GameManager : Singleton<GameManager>
     public override void Initialize()
     {
         EnemyManager.Instance.LoadNextEnemy(_currentEnemyMana);
+        ShowRulebook(false);
+        ShowRulebook(true);
     }
 
     void OnEnable()
@@ -71,5 +74,10 @@ public class GameManager : Singleton<GameManager>
     public void SetDefeatDescription(string description)
     {
         _defeatDescription.text = description;
+    }
+
+    public void ShowRulebook(bool active)
+    {
+        _rulebook.SetActive(active);
     }
 }
