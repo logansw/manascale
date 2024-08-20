@@ -47,7 +47,6 @@ public class ProgressionManager : Singleton<ProgressionManager>
         for (int i = 0; i < 5; i++)
         {
             Spell spell = DeckManager.Instance.GetRandomDatabaseSpell();
-            Debug.Log(spell.gameObject.name);
             DeckManager.Instance.DatabaseToShop(spell);
         }
     }
@@ -57,6 +56,7 @@ public class ProgressionManager : Singleton<ProgressionManager>
         DeckManager.Instance.ShopToDeck(SpellManager.Instance.SelectedSpell);
         _spellsRemaining--;
         _spellSelectionText.text = $"Choose {_spellsRemaining} spells to add to your deck";
+        SpellManager.Instance.DeselectSpell();
     }
 
     private void UpdateAddSpellButton()

@@ -10,6 +10,7 @@ public class DeckRenderer : MonoBehaviour
     [SerializeField] private RectTransform _discardPileTransform;
     [SerializeField] private RectTransform _exhaustPileTransform;
     [SerializeField] private RectTransform _shopTransform;
+    [SerializeField] private RectTransform _databaseTransform;
     private bool _updateQueued;
 
     void Update()
@@ -25,6 +26,7 @@ public class DeckRenderer : MonoBehaviour
                 RenderShop();
             }
             RenderExhaustPile(DeckManager.Instance.ExhaustPile);
+            RenderDatabase();
         }
     }
 
@@ -83,6 +85,16 @@ public class DeckRenderer : MonoBehaviour
         foreach (Spell spell in exhaustPile)
         {
             spell.transform.SetParent(_exhaustPileTransform);
+            spell.gameObject.SetActive(false);
+            spell.transform.localPosition = Vector3.zero;
+        }
+    }
+
+    public void RenderDatabase()
+    {
+        foreach (Spell spell in DeckManager.Instance.Database)
+        {
+            spell.transform.SetParent(_databaseTransform);
             spell.gameObject.SetActive(false);
             spell.transform.localPosition = Vector3.zero;
         }

@@ -44,12 +44,12 @@ public class DeckManager : Singleton<DeckManager>
         // AddCardToDeck<Red>(1);
         // AddCardToDeck<White>(2);
         // AddCardToDeck<SpellProjection>(1);
-        AddCardToDeck<SpellBasicOffensive>(2);
+        // AddCardToDeck<SpellBasicOffensive>(2);
         // AddCardToDeck<SpellFire>(1);
         // AddCardToDeck<SpellSteal>(1);
 
         AddCardToDeck<Blue>(5);
-        AddCardToDeck<SpellLightShield>(3);
+        AddCardToDeck<SpellDestroy>(3);
     }
 
     private void InitializeDatabase()

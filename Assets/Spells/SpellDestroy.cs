@@ -16,10 +16,28 @@ public class SpellDestroy : Spell
     public override void Cast()
     {
         ManaManager.InstancePlayer.ChangeMana(ManaType.Blue, -2);
+        List<Mana> toDestroy = SpellManager.Instance.SelectedManaEnemy;
+        int red = 0;
+        int blue = 0;
+        int white = 0;
         foreach (Mana mana in SpellManager.Instance.SelectedManaEnemy)
         {
-            ManaManager.InstanceEnemy.ChangeMana(mana.Type, -1);
+            if (mana.Type == ManaType.Red)
+            {
+                red++;
+            }
+            else if (mana.Type == ManaType.Blue)
+            {
+                blue++;
+            }
+            else if (mana.Type == ManaType.White)
+            {
+                white++;
+            }
         }
+        ManaManager.InstanceEnemy.ChangeMana(ManaType.Red, -red);
+        ManaManager.InstanceEnemy.ChangeMana(ManaType.Blue, -blue);
+        ManaManager.InstanceEnemy.ChangeMana(ManaType.White, -white);
     }
 
     public override string GetDescription()

@@ -17,8 +17,8 @@ public class SpellCast : Spell
     {
         foreach (Mana mana in SpellManager.Instance.SelectedManaPlayer)
         {
-            ManaManager.InstancePlayer.ChangeMana(mana.Type, -1);
             ManaManager.InstanceEnemy.ReceiveMana(mana.Type, 1);
+            ManaManager.InstancePlayer.ChangeMana(mana.Type, -1);
         }
     }
 
