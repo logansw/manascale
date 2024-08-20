@@ -171,9 +171,8 @@ public class ManaManager : MonoBehaviour
     public void AdvanceRedMana()
     {
         int red = Red;
-        MaxMana -= red;
         ChangeMana(ManaType.Red, -red);
-        ChangeMana(ManaType.None, red);
+        ChangeMana(ManaType.Black, red);
     }
 
     public void AdvanceWhiteMana()

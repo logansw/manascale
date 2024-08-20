@@ -26,7 +26,7 @@ public class Mana : MonoBehaviour
         {
             ManaType.Blue => new Color(51f/255f, 77f/255f, 195f/255f, 1f),
             ManaType.Red => new Color(195f/255f, 50f/255f, 50f/255f, 1f),
-            ManaType.White => new Color(223f/255f, 223f/255f, 223f/255f, 1f),
+            ManaType.White => new Color(1f, 1f, 1f, 1f),
             ManaType.Black => Color.black,
             _ => new Color(1f, 1f, 1f, 0.40f)
         };
