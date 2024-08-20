@@ -40,16 +40,11 @@ public class DeckManager : Singleton<DeckManager>
     public void InitializeDeck()
     {
         Deck = new List<Spell>();
-        // AddCardToDeck<Blue>(3);
-        // AddCardToDeck<Red>(1);
-        // AddCardToDeck<White>(2);
-        // AddCardToDeck<SpellProjection>(1);
-        // AddCardToDeck<SpellBasicOffensive>(2);
-        // AddCardToDeck<SpellFire>(1);
-        // AddCardToDeck<SpellSteal>(1);
-
-        AddCardToDeck<Blue>(5);
-        AddCardToDeck<SpellDestroy>(3);
+        AddCardToDeck<Blue>(3);
+        AddCardToDeck<White>(2);
+        AddCardToDeck<SpellProjection>(1);
+        AddCardToDeck<SpellBasicOffensive>(2);
+        AddCardToDeck<SpellSteal>(1);
     }
 
     private void InitializeDatabase()

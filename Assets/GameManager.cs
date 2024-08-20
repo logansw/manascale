@@ -12,6 +12,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private TMP_Text _defeatDescription;
     [SerializeField] private int _currentEnemyMana;
     [SerializeField] private GameObject _rulebook;
+    [SerializeField] private GameObject _youbeatthegametext;
+    [SerializeField] private TMP_Text _levelText;
 
     void Start()
     {
@@ -38,6 +40,7 @@ public class GameManager : Singleton<GameManager>
         EnemyManager.Instance.LoadNextEnemy(_currentEnemyMana);
         ShowRulebook(false);
         ShowRulebook(true);
+        _levelText.text = $"Level {_currentEnemyMana - 2} of 10";
     }
 
     void OnEnable()
@@ -61,8 +64,14 @@ public class GameManager : Singleton<GameManager>
 
     public void OnVictory()
     {
+        if (_currentEnemyMana == 12)
+        {
+            _youbeatthegametext.gameObject.SetActive(true);
+            return;
+        }
         _victoryPanel.gameObject.SetActive(true);
-        _currentEnemyMana += 2;
+        _currentEnemyMana += 1;
+        _levelText.text = $"Battle {_currentEnemyMana - 2} of 10";
         SpellManager.Instance.DeselectSpell();
     }
 
