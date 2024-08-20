@@ -20,7 +20,7 @@ public class EnemySpellSO : ScriptableObject
 
     public bool CanCast()
     {
-        return ManaManager.InstanceEnemy.Blue >= BlueCost + 1 && ManaManager.InstanceEnemy.Red >= RedCost;
+        return ManaManager.InstanceEnemy.Blue >= BlueCost && ManaManager.InstanceEnemy.Red >= RedCost;
     }
     
     public string GetDescription()
